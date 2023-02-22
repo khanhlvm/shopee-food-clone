@@ -1,4 +1,3 @@
-
 name: ssh-into-aws-ec2
 
 on:
@@ -23,16 +22,17 @@ jobs:
       - name: Git clone the repository
         uses: actions/checkout@v3
       - name: Configure SSH
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_EC2_KEY }}
-          name: ec2_rsa
-          known_hosts: ${{ secrets.SSH_EC2_KEY }}
-          config: |
-            Host bastion
-              HostName ${{ env.REMOTE_HOST }}
-              User user-of-bastion
-              IdentityFile ~/.ssh/ec2_rsa
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
         env:
           SSH_HOST: ${{ env.REMOTE_HOST }}
           SSH_USER: ${{ env.REMOTE_USER }}
@@ -42,4 +42,4 @@ jobs:
       - name: build project
         run: docker build . --file Dockerfile --tag shopee-food-clone-ui:lastest
       - name: run project
-        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui:lastest'
+        run: docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui:lastest
