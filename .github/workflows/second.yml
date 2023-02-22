@@ -42,4 +42,4 @@ jobs:
       - name: build project
         run: docker build . --file Dockerfile --tag shopee-food-clone-ui:lastest
       - name: run project
-        run: docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui:lastest
+        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui:lastest'
