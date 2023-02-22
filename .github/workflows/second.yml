@@ -3,9 +3,9 @@ name: ssh-into-aws-ec2
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   AWS_REGION: ap-southeast-1
