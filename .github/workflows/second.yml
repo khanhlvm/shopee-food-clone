@@ -25,7 +25,8 @@ jobs:
       - name: Configure SSH
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_EC2_KEY }} 
+          key: ${{ secrets.SSH_EC2_KEY }}
+          known_hosts: ${{ env.REMOTE_HOST }}
         env:
           SSH_HOST: ${{ env.REMOTE_HOST }}
           SSH_USER: ${{ env.REMOTE_USER }}
