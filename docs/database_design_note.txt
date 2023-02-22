@@ -1,0 +1,41 @@
+1. Products - Sản phẩm (Trà sữa truyền thống - trà sữa, …)
+- Mã sản phẩm
+- Mã loại sản phẩm con
+- Mã shop
+- Mã khuyến mãi
+- Tên sản phẩm
+- Mô tả sản phẩm
+- Đơn giá
+- Mã khuyến mãi
+- Số lựợt bán
+- Điểm đánh giá
+- Số lượt đánh giá
+
+2. ChildCategories - Danh mục sản phẩm (Trà sữa - đồ uống, …)
+- Mã loại sản phẩm con
+- Tên loại sản phẩm con
+- Mã loại sản phẩm cha
+
+3. SuperCategories (Đồ uống)
+- Mã loại sản phẩm cha
+- Tên loại sản phẩm cha
+
+4. Shops- Đơn vị bán hàng (Quán hehe)
+- Mã shop
+- Tên shop
+- Địa chỉ shop
+- Giờ hoạt động
+
+5. ShopCategories (nhà hàng, tiệm ăn vặt, … )
+- Mã loại shop
+- Mã shop
+
+6. Promotions - Chương trình khuyến mãi (giảm 50%, mua 1 tăng 1, ...)
+- Mã khuyến mãi
+- Tên khuyến mãi
+- Hệ số nhân mã khuyến mãi
+
+7. Collections - Bộ sưu tập (deal đang giảm 50%)
+- Mã bộ sưu tập
+- Tên bộ sưu tập
+- Mã khuyến mãi
