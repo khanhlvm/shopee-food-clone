@@ -41,6 +41,6 @@ jobs:
       - name: List home directory
         run: ssh ec2 'ls -la'
       - name: build project
-        run: docker build . --file Dockerfile --tag shopee-food-clone-ui:$(date +%s)
+        run: docker build . --file Dockerfile --tag shopee-food-clone-ui:lastest
       - name: run project
-        run: docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui
+        run: docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui:lastest
