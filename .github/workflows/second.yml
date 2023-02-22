@@ -56,9 +56,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: latest
-          labels: latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: pull docker hub to ec2
-        run: ssh ec2 'docker pull khanhlvm/shopee-food:latest'
+        run: ssh ec2 'docker pull khanhlvm/shopee-food:${{ steps.meta.outputs.tags }}'
       - name: run project
-        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food khanhlvm/shopee-food:latest'
+        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food khanhlvm/shopee-food:${{ steps.meta.outputs.tags }}'
