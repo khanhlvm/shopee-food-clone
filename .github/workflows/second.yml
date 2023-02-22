@@ -61,4 +61,4 @@ jobs:
       - name: pull docker hub to ec2
         run: ssh ec2 'docker pull khanhlvm/shopee-food:master'
       - name: run project
-        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food khanhlvm/shopee-food:${{ steps.meta.outputs.tags }}'
+        run: ssh ec2 'docker run -p 2000:8080 -d --name shopee-food khanhlvm/shopee-food:master'
