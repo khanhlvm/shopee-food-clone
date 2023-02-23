@@ -1,3 +1,4 @@
+
 name: ssh-into-aws-ec2
 
 on:
@@ -18,7 +19,6 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
@@ -44,4 +44,3 @@ jobs:
         run: docker build . --file Dockerfile --tag shopee-food-clone-ui:$(date +%s)
       - name: run project
         run: docker run -p 2000:8080 -d --name shopee-food shopee-food-clone-ui
-        
