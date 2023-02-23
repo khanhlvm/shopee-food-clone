@@ -10,6 +10,8 @@ env:
   AWS_REGION: ap-southeast-1
   REMOTE_HOST: ec2-18-143-170-77.ap-southeast-1.compute.amazonaws.com
   REMOTE_USER: ec2-user
+  PROJECT_NAME: shopee-food-clone-ui
+  PROJECT_IMAGE: khanhlvm/shopee-food
 
 permissions:
   contents: read
@@ -50,7 +52,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: khanhlvm/shopee-food
+          images: ${{ env.PROJECT_IMAGE }}
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
@@ -58,9 +60,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: pull image from docker hub to ec2
-        run: ssh ec2 'docker pull khanhlvm/shopee-food:master'
-      - name: remove old container
-        run: ssh ec2 'docker rm -f shopee-food-clone-ui'
-      - name: run project on ec2
-        run: ssh ec2 'docker run -p 8080:8080 -d --name shopee-food-clone-ui khanhlvm/shopee-food:master'
+      - name: Pull image from docker hub to ec2
+        run: ssh ec2 'docker pull ${{ env.PROJECT_IMAGE }}:master'
+      - name: Remove container of project is running
+        run: ssh ec2 'docker rm -f ${{ env.PROJECT_NAME }}'
+      - name: Run image of project on ec2
+        run: ssh ec2 'docker run -p 8080:8080 -d --name ${{ env.PROJECT_NAME }} ${{ env.PROJECT_IMAGE }}:master'
