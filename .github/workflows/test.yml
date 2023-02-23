@@ -58,7 +58,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: pull docker hub to ec2
+      - name: pull image from docker hub to ec2
         run: ssh ec2 'docker pull khanhlvm/shopee-food:master'
-      - name: run project
-        run: ssh ec2 'docker run -p 8080:8080 -d --name shopee-food khanhlvm/shopee-food:master'
+      - name: remove old container
+        run: ssh ec2 'docker rm -f shopee-food-clone-ui'
+      - name: run project on ec2
+        run: ssh ec2 'docker run -p 8080:8080 -d --name shopee-food-clone-ui khanhlvm/shopee-food:master'
