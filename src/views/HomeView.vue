@@ -71,12 +71,20 @@
               </v-row>
               <v-row>
                 <v-col
-                  v-for="n in 6"
-                  :key="n"
                   cols="12"
                   md="4"
+                  v-for="prod in products"
+                  :key="prod.id"
+                  @click="goToProductDetail(prod.id)"
                 >
-                  <PromotionCard/>
+                  <PromotionCard
+                    :id="prod.id"
+                    :name="prod.name"
+                    :address="prod.address"
+                    :price="prod.price"
+                    :discountMessage="prod.discountMessage"
+                  >
+                  </PromotionCard>
                 </v-col>
               </v-row>
               </v-container>
@@ -113,11 +121,19 @@
 <script>
 import PromotionCard from '../components/PromotionCard.vue'
 import CollectionCard from '../components/CollectionCard.vue'
+// import DetailView from './DetailView.vue'
+
 export default {
   name: 'HomeView',
   components: {
     PromotionCard,
-    CollectionCard
+    CollectionCard,
+  },
+  computed: {
+    // ...mapState(['products']),
+    products() {
+      return this.$store.getters['prods/products'];
+    }
   },
   data: () => ({
     items: [
@@ -127,8 +143,13 @@ export default {
     ],
     itemBars: ['Đồ ăn', 'Thực phẩm', 'Bia', 'Hoa', 'Siêu thị', 'Thuốc', 'Thú cưng'],
     iBoxs: ['All', 'Đồ ăn', 'Đồ uống', 'Đồ chay', 'Bánh kem', 'Tráng miệng', 'Homemade', 'Vỉa hè'],
-  }
-  ),
+  }),
+  
+  methods: {
+    goToProductDetail(productId) {
+      this.$router.push({ path: `/detail/${productId}` });
+    },
+  },
 }
 </script>
 <style>
