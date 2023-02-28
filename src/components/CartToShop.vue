@@ -8,15 +8,19 @@
           color="primary"
           v-bind="props"
         >
-          <v-icon icon="fa-solid fa-cart-shopping" color="orange"/> 
+          <v-icon icon="fa-solid fa-cart-shopping" color="orange"/>{{ cartQuantity }}
+          
         </v-btn>
       </template>
+      
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        <v-list-item>
+          <v-btn
+            elevation="2"
+            small
+            @click="onCartDetail"
+          >{{ cartQuantity }} -> Xem chi tiết</v-btn>
+          <!-- <v-list-item-title></v-list-item-title> -->
         </v-list-item>
       </v-list>
     </v-menu>
@@ -25,14 +29,21 @@
 
 <script>
   export default {
-    data: () => ({
-      items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
-    }),
+    props: ['id', 'name', 'address', 'price', 'discountMessage'],
+    computed: {
+      cartQuantity() {
+        console.log("cart/quantity");
+        return this.$store.getters['cart/quantity'];
+      }
+    },
+    methods: {
+      remove() {
+        this.$store.dispatch('cart/removeFromCart', { productId: this.id });
+      },
+      onCartDetail() {
+        this.$router.push({ path: `/cart-detail` });
+      }
+    }
   }
 </script>
         

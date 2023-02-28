@@ -19,10 +19,12 @@
               QUÁN ĂN
             </span>
             <h1>
-              Chí Thiện - Cơm Phần
+              <!-- Chí Thiện - Cơm Phần -->
+              {{ name }}
             </h1>
             <span class="text-body-2">
-              158A Trần Vĩnh Kiết, P. An Bình, Quận Ninh Kiều, Cần Thơ
+              <!-- 158A Trần Vĩnh Kiết, P. An Bình, Quận Ninh Kiều, Cần Thơ -->
+              {{ address }}
             </span>
             <div class="mb-2">
               <v-icon
@@ -61,9 +63,14 @@
                 size="15"
                 icon="fa-solid fa-dollar-sign"
                 ></v-icon> 
-                25,000 - 35,000
+                <!-- 25,000 - 35,000 -->
+                {{ price }}
             </div>
-            <v-divider class="mt-5"></v-divider>
+            <v-divider class="mt-4 mb-4"></v-divider>
+            <v-btn
+              elevation="2"
+              @click="addToCart"
+            >Thêm vào giỏ hàng</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -101,6 +108,7 @@
 </template>
 
 <script>
+// import { mapGetters } from 'vuex'
 import MenuList from '../components/MenuList.vue'
 
 export default({
@@ -108,31 +116,70 @@ export default({
   components: {
     MenuList,
   },
+  // props: [ 'id', 'name', 'address', 'price', 'discountMessage' ],
+  // props: {
+  //   productId: {
+  //     type: Number,
+  //     required: true
+  //   },
+  // },
   data: () => ({
-      items: [
-        {
-          title: 'Các món từ gà',
-          value: 1,
-        },
-        {
-          title: 'Thịt heo',
-          value: 2,
-        },
-        {
-          title: 'Món canh',
-          value: 3,
-        },
-        {
-          title: 'Cơm tổng hợp',
-          value: 4,
-        },
-        {
-          title: 'Món thêm xào',
-          value: 5,
-        },
-      ],
-    }),
-})
+    items: [
+      {
+        title: 'Các món từ gà',
+        value: 1,
+      },
+      {
+        title: 'Thịt heo',
+        value: 2,
+      },
+      {
+        title: 'Món canh',
+        value: 3,
+      },
+      {
+        title: 'Cơm tổng hợp',
+        value: 4,
+      },
+      {
+        title: 'Món thêm xào',
+        value: 5,
+      },
+    ],
+    productId: 0,
+    id: 0,
+    name: '',
+    price: 0,
+    address: '',
+    discountMessage: '',
+  }),
+  mounted() {
+    const productId = this.$route.params.productId;
+
+    const product = this.products.find(prod => prod.id === productId);
+    this.id = product.id;
+    this.name = product.name;
+    this.price = product.price;
+    this.address = product.address;
+    this.discountMessage = product.discountMessage;
+  },
+  computed: {
+    products() {
+      return this.$store.getters['prods/products'];
+    }
+  },
+  methods: {
+    addToCart() {
+      this.$store.dispatch('cart/addToCart', {
+        id: this.id,
+        name: this.name,
+        price: this.price,
+        address: this.address,
+        discountMessage: this.discountMessage,
+      });
+    },
+  },
+});
 </script>
 
 <style>

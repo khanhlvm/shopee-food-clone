@@ -3,7 +3,7 @@
     <v-card
       class="mx-auto rounded-lg"
       max-width="344"
-      @click="toAbout"
+      @click="toProductDetail(product.productId)"
     >
       <div class="ml-n1 pa-2 bg-green rounded-circle d-inline-block" ></div>
       <v-img
@@ -16,11 +16,13 @@
 
       <v-card-title class="pl-2 py-0 text-subtitle-2 font-weight-black">
         <!-- <router-link to="/about">About</router-link> -->
-        Chí Thiện - Cơm phần
+        <!-- Chí Thiện - Cơm phần -->
+        {{ name }}
       </v-card-title>
 
       <v-card-subtitle class="pl-2 text-caption">
-        54 Võ Văn Kiệt, Thanh Hà
+        <!-- 54 Võ Văn Kiệt, Thanh Hà -->
+        {{ address }}
       </v-card-subtitle>
 
       <v-divider></v-divider>
@@ -28,7 +30,7 @@
       <v-card-actions class="pl-2 py-0" >
         <v-icon icon="fas fa-tag" color="red"/>
         <div class=" pl-2 text-subtitle-2 font-weight-black">
-          Giảm hết 10%
+          {{ discountMessage }}
         </div>
       </v-card-actions>
 
@@ -46,9 +48,41 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
+
 export default{
   name: 'PromotionCard',
+  // props: [ 'id', 'name', 'address', 'price', 'discountMessage' ],
+
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    discountMessage: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    // ...mapState(['products']),
+  },
   methods: {
+    toProductDetail(productId) {
+      this.$router.push({ path: `/detail/${productId}` });
+    },
     toAbout() {
       this.$router.push({ path: '/detail' })
     }
