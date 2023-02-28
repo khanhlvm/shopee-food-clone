@@ -66,3 +66,4 @@ jobs:
         run: ssh ec2 'docker rm -f ${{ env.PROJECT_NAME }}'
       - name: Run image of project on ec2
         run: ssh ec2 'docker run -p 8080:8080 -d --name ${{ env.PROJECT_NAME }} ${{ env.PROJECT_IMAGE }}:master'
+#update
