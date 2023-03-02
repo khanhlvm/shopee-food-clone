@@ -7,6 +7,7 @@ export default {
       qty: 0,
     };
   },
+
   mutations: {
     addProductToCart(state, payload) {
       const productData = payload;
@@ -33,6 +34,7 @@ export default {
         alert("Add successfully!")
       }
     },
+    
     removeProductFromCart(state, payload) {
       const productId = payload.productId;
       const productInCartIndex = state.items.findIndex(
