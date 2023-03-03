@@ -46,6 +46,7 @@
 </template>
 
 <script>
+  console.log("test");
   export default {
     props: ['prodId', 'name', 'address', 'price', 'discountMessage', 'qty'],
     computed: {
