@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  console.log("tesst");
   export default {
     props: ['id', 'name', 'address', 'price', 'discountMessage'],
     computed: {
