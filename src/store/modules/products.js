@@ -29,8 +29,6 @@ export default {
   },
   getters: {
     products(state) {
-      console.log("called product getters");
-      console.log(state.products);
       return state.products;
     },
     productById: (state) => (id) => {
