@@ -63,4 +63,4 @@ jobs:
       - name: Remove container of project is running
         run: ssh ec2 'docker rm -f ${{ env.PROJECT_NAME }}'
       - name: Run image of project on ec2
-        run: ssh ec2 'docker run -p 2000:8080 -d --name ${{ env.PROJECT_NAME }} ${{ env.PROJECT_IMAGE }}:master'
+        run: ssh ec2 'docker run -p 80:8080 -d --name ${{ env.PROJECT_NAME }} ${{ env.PROJECT_IMAGE }}:master'
