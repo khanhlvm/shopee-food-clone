@@ -39,7 +39,7 @@
               </v-list>
             </v-menu>
           </v-col>
-          <v-col cols="6" class="pl-10 py-0">
+          <v-col cols="auto" class="pl-10 py-0">
             <v-tabs 
               color="#ff3300"
               >

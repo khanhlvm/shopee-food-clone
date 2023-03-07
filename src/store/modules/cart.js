@@ -11,10 +11,10 @@ export default {
     addProductToCart(state, payload) {
       const productData = payload;
       const productInCartIndex = state.items.findIndex(
-        cartItem => cartItem.productId = productData.id
+        cartItem => cartItem.productId === productData.id
       );
 
-      if (productInCartIndex > 0) {
+      if (productInCartIndex >= 0) {
         state.items[productInCartIndex].qty++;
       } else {
         const newProduct = {
@@ -27,9 +27,8 @@ export default {
         };
         state.items.push(newProduct);
       }
-      state.total = productData.price;
+      state.total = state.total + productData.price;
       state.qty++;
-      console.log(state.qty);
       if (state.qty >= 1) {
         alert("Add successfully!")
       }
@@ -40,14 +39,13 @@ export default {
         cartItem => cartItem.productId = productId
       );
       const productData = state.items[productInCartIndex];
-      state.items.slice(productInCartIndex, 1);
+      state.items.splice(productInCartIndex, 1);
       state.total -= productData.price * productData.qty;
       state.qty -= productData.qty;
     },
   },
   actions: {
     addToCart(context, payload) {
-      console.log("call action addToCart");
       context.commit('addProductToCart', payload);
     },
     removeFromCart(context, payload) {
@@ -62,7 +60,6 @@ export default {
       return state.total;
     },
     quantity(state) {
-      console.log(state.qty);
       return state.qty;
     },
   }
